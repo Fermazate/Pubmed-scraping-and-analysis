@@ -10,7 +10,7 @@ from utils.data_processing import year_numeric
 from scraping.scraper import search
 from processing.build_df import df_pubmed
 
-def input():
+def input_query():
     #Introducing query
     mesh_string = input('introduce mesh terms separated by "/": ')
     
@@ -19,7 +19,7 @@ def input():
     return mesh_terms
 
 def main():
-    mesh_terms = input()
+    mesh_terms = input_query()
     #Searching in PubMed
     studies = search(mesh_terms)
     studiesIdList = studies['IdList']
