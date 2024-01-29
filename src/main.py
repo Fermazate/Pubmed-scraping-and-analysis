@@ -3,20 +3,23 @@ import os
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__),'..')))
 
-from utils.string_processing import cutter
+from utils.text_processing import cutter
 from utils.data_processing import reduce_data
 from utils.data_processing import monts_standardizing
 from utils.data_processing import year_numeric
 from scraping.scraper import search
 from processing.build_df import df_pubmed
 
-def main():
+def input():
     #Introducing query
     mesh_string = input('introduce mesh terms separated by "/": ')
     
     #Processing introduced query
     mesh_terms = cutter(mesh_string)
-    
+    return mesh_terms
+
+def main():
+    mesh_terms = input()
     #Searching in PubMed
     studies = search(mesh_terms)
     studiesIdList = studies['IdList']

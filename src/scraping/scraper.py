@@ -7,7 +7,7 @@ def search(query:str, db:str='pubmed'):
                             sort = 'relevance',
                             retmax = '250000',
                             retmode = 'xml',
-                            term=query, mindate = '2019', maxdate = '2024')
+                            term=query)
     results = Entrez.read(handle)
     return results
 
