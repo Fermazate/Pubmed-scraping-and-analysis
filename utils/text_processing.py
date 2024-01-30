@@ -17,24 +17,6 @@ def cutter(string:str):
     cutted_string = [cutted.strip() for cutted in cutted_string]
     return cutted_string
 
-def count_words(df:pd.DataFrame, column:str, chunk_size=10000):
-    """
-    This function counts the words in a dataframe.
-    """
-    word_counts = Counter()
-    
-    num_chunks = max(1, len(df) // chunk_size)
-    
-    for text in df[column].dropna():
-        doc = nlp(text)
-        words = [token.text.lower() for token in doc if token.text.isalpha()]
-        word_counts.update(words)
-        
-    freq_df = pd.DataFrame(word_counts.items(), columns=['Word', 'Frequency'])
-    freq_df = freq_df.sort_values(by='Frequency', ascending=False).reset_index(drop=True)
-    
-    return freq_df
-
 def process_text(text, nlp_model):
     #Split the text into chunks
     max_lenght = 1000000
@@ -100,4 +82,4 @@ def make_weighted_table(bow, feature_names):
     
     df_weights = df_weights.merge(df_cnts, on='word', how = 'left')
     
-    return df_weights
+    return df_weights,df_tfidf

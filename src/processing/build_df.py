@@ -12,8 +12,6 @@ def df_pubmed(studies_id_list, db:str='pubmed'):
     pubdate_year_list = []
     pubdate_month_list = []
     
-    studies = fetch_details(studies_id_list, db)
-    
     chunk_size = 10000
     
     for chunk_i in range (0, len(studies_id_list), chunk_size):

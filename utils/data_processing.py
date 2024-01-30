@@ -16,19 +16,19 @@ def monts_standardizing(df:pd.DataFrame):
     """
     This function standardizes the data in a dataframe.
     """
-    df['Month'].replace('Jan', '01', inplace=True)
-    df['Month'].replace('Feb', '02', inplace=True)
-    df['Month'].replace('Mar', '03', inplace=True)
-    df['Month'].replace('Apr', '04', inplace=True)
-    df['Month'].replace('May', '05', inplace=True)
-    df['Month'].replace('Jun', '06', inplace=True)
-    df['Month'].replace('Jul', '07', inplace=True)
-    df['Month'].replace('Aug', '08', inplace=True)
-    df['Month'].replace('Sep', '09', inplace=True)
-    df['Month'].replace('Oct', '10', inplace=True)
-    df['Month'].replace('Nov', '11', inplace=True)
-    df['Month'].replace('Dec', '12', inplace=True)
-    df['Month'].replace('No Data', np.nan, inplace=True)
+    df['Month']=df['Month'].replace('Jan', '01', inplace=True)
+    df['Month']=df['Month'].replace('Feb', '02', inplace=True)
+    df['Month']=df['Month'].replace('Mar', '03', inplace=True)
+    df['Month']=df['Month'].replace('Apr', '04', inplace=True)
+    df['Month']=df['Month'].replace('May', '05', inplace=True)
+    df['Month']=df['Month'].replace('Jun', '06', inplace=True)
+    df['Month']=df['Month'].replace('Jul', '07', inplace=True)
+    df['Month']=df['Month'].replace('Aug', '08', inplace=True)
+    df['Month']=df['Month'].replace('Sep', '09', inplace=True)
+    df['Month']=df['Month'].replace('Oct', '10', inplace=True)
+    df['Month']=df['Month'].replace('Nov', '11', inplace=True)
+    df['Month']=df['Month'].replace('Dec', '12', inplace=True)
+    df['Month']=df['Month'].replace('No Data', np.nan, inplace=True)
     
     return df
 
@@ -36,7 +36,7 @@ def year_numeric(df:pd.DataFrame):
     """
     This function converts the year column in a dataframe to numeric.
     """
-    df['Year'].replace('No Data', np.nan, inplace=True)
+    df['Year']=df['Year'].replace('No Data', np.nan, inplace=True)
     df['Year'] = round(pd.to_numeric(df['Year'], errors='coerce'), 0)
     return df
 
