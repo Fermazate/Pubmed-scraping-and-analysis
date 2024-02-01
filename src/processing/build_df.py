@@ -11,6 +11,9 @@ def df_pubmed(studies_id_list, db:str='pubmed'):
     language_list = []
     pubdate_year_list = []
     pubdate_month_list = []
+    publicationtype_list = []
+    articledate_list = []
+    daterevised_list = []
     
     chunk_size = 10000
     
@@ -22,9 +25,11 @@ def df_pubmed(studies_id_list, db:str='pubmed'):
             try:
                 abstract_list.append(paper['MedlineCitation']['Article']['Abstract']['AbstractText'])
             except:
-                abstract_list.append('No Abstract')
+                pass
             journal_list.append(paper['MedlineCitation']['Article']['Journal']['Title'])
             language_list.append(paper['MedlineCitation']['Article']['Language'][0])
+            publicationtype_list.append(paper['MedlineCitation']['Article']['PublicationTypeList'])
+            articledate_list.append(paper['MedlineCitation']['Article']['ArticleDate'])
             try:
                 pubdate_year_list.append(paper['MedlineCitation']['Article']['Journal']['JournalIssue']['PubDate']['Year'])
             except:
@@ -33,11 +38,11 @@ def df_pubmed(studies_id_list, db:str='pubmed'):
                 pubdate_month_list.append(paper['MedlineCitation']['Article']['Journal']['JournalIssue']['PubDate']['Month'])
             except:
                 pubdate_month_list.append('No Data')
-                
+            daterevised_list.append(paper['MedlineCitation']['DateRevised'])
     df = pd.DataFrame(list(zip(
                                 title_list, abstract_list, journal_list, language_list, pubdate_year_list, pubdate_month_list
                                 )),
-                                columns = ['Title', 'Abstract', 'Journal', 'Language', 'Year', 'Month']
+                                columns = ['title', 'abstract', 'journal', 'language', 'year', 'month']
                                 )
     
     return df

@@ -28,7 +28,11 @@ def process_text(text, nlp_model):
         words.extend([token.text.lower() for token in doc if token.is_alpha])
     return words
 
-def stopwords_removal(text, words:list = [], synonyms:list = []):
+def stopwords_removal(text):
+    #Exclusions and synonims
+    words = ['conclusions', 'method', 'alopecia','label', 'disease', 'used', 'patient', 'patients', 'attributes', 'study', 'studies', 'common', 'nlmcategory','abstract','included','significantly','months','increased','compared','attributeslabel','hair','background','observed','methods','may','association','found','results','also','cases','objective','95','using','significant','however','stringelementthe','effects','reported','1','associated','group','clinical','conclusion','data','including','diseases','age','2','ci','unassigned','showed','case','review','analysis','two','case','use','higher','years','diagnosis','levels']
+    synonyms = [['Androgenetic Alopecia','AA','AGA'],['finasteride','finasterida'],['therapy','treatment'],['adverse effects','adverse']]
+    
     #Combine stopwords with other excluded words
     remove_list = set(stopwords.words('english') + words)
     
@@ -41,7 +45,6 @@ def stopwords_removal(text, words:list = [], synonyms:list = []):
             synms_dict[synm.lower()] = first_word
     
     #Processing each word
-    
     non_stopwords = []
     
     nopunc = [char for char in text if char not in string.punctuation]
@@ -56,7 +59,7 @@ def stopwords_removal(text, words:list = [], synonyms:list = []):
     return non_stopwords
 
 def counting(df, column:str, words:list=[], synonyms:list = []):
-    vect = CountVectorizer(analyzer= (lambda text: stopwords_removal(text, words=words, synonyms=synonyms))).fit(df[column])
+    vect = CountVectorizer(analyzer= stopwords_removal).fit(df[column])
     
     bow = vect.transform(df[column])
     
